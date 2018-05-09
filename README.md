@@ -57,6 +57,3 @@ The net was tested on a dataset of annotated images of materials in glass vessel
 This dataset can be downloaded from [here](https://drive.google.com/file/d/0B6njwynsu2hXRFpmY1pOV1A4SFE/view?usp=sharing)
 
 MIT Scene Parsing Benchmark with over 20k pixel-wise annotated images can also be used for training and can be download from [here](http://sceneparsing.csail.mit.edu/)
-
-   
-# Fully-convolutional-neural-network-FCN-for-semantic-segmentation-with-pytorch
