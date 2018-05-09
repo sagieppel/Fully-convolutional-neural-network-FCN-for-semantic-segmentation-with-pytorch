@@ -16,8 +16,6 @@ This network was run with Python 3.6  [Anaconda](https://www.anaconda.com/downlo
 ## Setup
 1) Install [Pytorch](https://pytorch.org/)
 2) Download the code from the repository.
-3) Download pretrained DenseNet model for net initiation from: [https://drive.google.com/file/d/1bFdIbIS_2pWd9PQs1x_hYq6Y0BVsL2eI/view?usp=sharing]
-    and put in Pretrained_Encoder_Weights folder
 
 ## Tutorial
 
