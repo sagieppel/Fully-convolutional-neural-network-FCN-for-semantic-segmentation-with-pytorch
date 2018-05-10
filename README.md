@@ -1,4 +1,4 @@
-# Fully convolutional neural network (FCN) for semantic segmentation with pytorch.
+#  Semantic segmentation with Fully convolutional neural network (FCN) pytorch implementation.
 
 Fully convolutional neural network (FCN) for pixelwise annotation (semantic segmentation) of images implemented on python pytorch. 
  
