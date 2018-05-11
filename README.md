@@ -21,7 +21,7 @@ This network was run with Python 3.6  [Anaconda](https://www.anaconda.com/downlo
 
 ### Instructions for training (in TRAIN.py):
 In: TRAIN.py
-1) Download pretrained DenseNet model for net initiation from: [https://drive.google.com/file/d/1bFdIbIS_2pWd9PQs1x_hYq6Y0BVsL2eI/view?usp=sharing]
+1) Download pretrained DenseNet model for net initiation from [here](https://drive.google.com/file/d/1bFdIbIS_2pWd9PQs1x_hYq6Y0BVsL2eI/view?usp=sharing]) or [here](https://drive.google.com/file/d/1m1kogoWPkKwBaMkzZxJygHi-mbGbup1Y/view?usp=sharing)
     and put in Pretrained_Encoder_Weights folder
 2) Set folder of training images in Train_Image_Dir
 3) Set folder for ground truth labels in Train_Label_DIR
@@ -50,6 +50,9 @@ In: Evaluate_Net_IOU.py
 6) Run script
 ## Net Architecture
 The net is composed on [Densenet](https://arxiv.org/pdf/1608.06993.pdf) encoder [PSP](https://arxiv.org/pdf/1612.01105.pdf) itermediate layers  and two [deconvolutional](https://arxiv.org/pdf/1605.06211.pdf) upsample layers. The net architecture is defined in the NET_FCN.py file. The Densenet encoder is defined in densenet_cosine_264_k32.py.
+## Trained model 
+1) Trained Model for recognition of fill and emprty region of transperent vessels and glassware ([3 Classes](https://drive.google.com/file/d/1yw7e83ux1F0yrHR1k9PZRQVd37jxUov_/view?usp=sharing)) can be download from [here](https://drive.google.com/file/d/1s4PZXkMn7euMMsxFOIaMKYjOIeSv-ZTJ/view?usp=sharing) 
+2) Trained model for recogntion of liquid and solid  materials phases in glassware and transperent vessels ([4 Classes](https://drive.google.com/file/d/1HkwjFU1ffo29oSER3rak5qoLKvpwf9Sn/view?usp=sharing) can be download from [here](https://drive.google.com/file/d/1vALUddiwnZNpBjum1jCHYkJGYN0eQg7q/view?usp=sharing) 
 ## Supporting data sets
 The net was tested on a dataset of annotated images of materials in glass vessels. 
 This dataset can be downloaded from [here](https://drive.google.com/file/d/0B6njwynsu2hXRFpmY1pOV1A4SFE/view?usp=sharing)
