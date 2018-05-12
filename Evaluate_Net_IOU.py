@@ -4,7 +4,7 @@
 # 2) Set the Image_Dir to the folder where the input images for prediction are located
 # 3) Set folder for ground truth labels in Label_DIR
 #    The Label Maps should be saved as png image with same name as the corresponding image and png ending
-# 4) Set number of classes number in NUM_CLASSES
+# 4) Set number of classes in NUM_CLASSES
 # 5) Set classes names in Classes
 # 6) Run script
 #######################Imports####################################################################################################################################
@@ -19,22 +19,21 @@ import NET_FCN as FCN
 #......................Input Parameters...................................................................
 
 Image_Dir="Data_Zoo/Materials_In_Vessels/Test_Images_All//"#Images for evaluation
-Label_Dir="Data_Zoo/Materials_In_Vessels/LiquidSolidLabels"#Ground truth  per pixel annotation for the images in Image dir
-Trained_model_path="TrainedModelWeights/20000.torch"# "Path to trained net weights
+Label_Dir="Data_Zoo/Materials_In_Vessels/FillLevelLabels"#Ground truth  per pixel annotation for the images in Image dir
+Trained_model_path="TrainedModelWeights/FillLevelRecognitionNetWeights.torch"# "Path to trained net weights
 
-NUM_CLASSES = 4 #Number of classes the net predicts
-Classes = ["BackGround", "Empty Vessel","Liquid","Solid"] #names of classe the net predic
+NUM_CLASSES = 3 #Number of classes the net predicts
+#Classes = ["BackGround", "Empty Vessel","Liquid","Solid"] #names of classe the net predic
 UpdateNormBatchStatisics=False # Do you want ot calculate batch normstatistics on the fly or used training statistics
 #Classes=["Background","Vessel"] #Classes predicted for vessel region prediction
-#Classes=["BackGround","Empty Vessel region","Filled Vessel region"]#
+Classes=["BackGround","Empty Vessel region","Filled Vessel region"]#
 
 #Classes=["BackGround","Vessel","Liquid","Liquid Phase two","Suspension", "Emulsion","Foam","Solid","Gel","Powder","Granular","Bulk","Bulk Liquid","Solid Phase two","Vapor"]
 
  # .........................Build FCN Net...............................................................................................
-
-Net=FCN.Net(NumClasses=NUM_CLASSES)
-Net.load_state_dict(torch.load(Trained_model_path))
-if not UpdateNormBatchStatisics: Net.eval()
+Net=FCN.Net(NumClasses=NUM_CLASSES) #Build Net
+Net.load_state_dict(torch.load(Trained_model_path)) # Load Traine model
+if not UpdateNormBatchStatisics: Net.eval() #Dont update batch normalization statitics
 print("Model weights loaded from: "+Trained_model_path)
 
 # -------------------------Data reader for validation image-----------------------------------------------------------------------------------------------------------------------------

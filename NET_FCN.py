@@ -68,7 +68,7 @@ class Net(nn.Module):# FCN Net class for semantic segmentation init generate net
 #----------------------Convert image to pytorch and normalize values-----------------------------------------------------------------
                 RGBMean = [123.68,116.779,103.939]
                 RGBStd = [65,65,65]
-                InpImages = torch.autograd.Variable(torch.from_numpy(Images), requires_grad=False,volatile=EvalMode).transpose(2,3).transpose(1, 2).type(torch.FloatTensor)
+                InpImages = torch.autograd.Variable(torch.from_numpy(Images.astype(float)), requires_grad=False,volatile=EvalMode).transpose(2,3).transpose(1, 2).type(torch.FloatTensor)
 
                 if self.UseGPU == True:
                     InpImages=InpImages.cuda()
