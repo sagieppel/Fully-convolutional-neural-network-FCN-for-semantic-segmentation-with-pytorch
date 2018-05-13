@@ -21,7 +21,7 @@ This network was run with Python 3.6  [Anaconda](https://www.anaconda.com/downlo
 
 ## Tutorial
 
-### Instructions for training (in TRAIN.py):
+### Instructions for training:
 In: TRAIN.py
 1) Download pretrained DenseNet model for net initiation from [here](https://drive.google.com/file/d/1bFdIbIS_2pWd9PQs1x_hYq6Y0BVsL2eI/view?usp=sharing]) or [here](https://drive.google.com/file/d/1m1kogoWPkKwBaMkzZxJygHi-mbGbup1Y/view?usp=sharing)
     and put in Pretrained_Encoder_Weights folder
@@ -33,7 +33,7 @@ In: TRAIN.py
 6) Run script
 See additional parameters you can playu with in the input parameters section of the train.py script
 
-### Predicting pixelwise annotation for image using trained net (in Inference.py)
+### Predicting pixelwise annotation for image using trained net 
 In: Inference.py
 1) Make sure you you have trained model in Trained_model_path (See Train.py for creating trained model)
 2) Set the Image_Dir to the folder where the input image for prediction are located
@@ -42,6 +42,7 @@ In: Inference.py
 5) Run script
 
 ### Annotating Video using trained net
+In: InferenceVideo.py
 1) Make sure you you have trained model in Trained_model_path (See Train.py for creating trained model)
 2) Set the InputVid to the input video file
 3) Set number of classes  in NUM_CLASSES
