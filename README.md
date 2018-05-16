@@ -10,8 +10,6 @@ The net produces pixel-wise annotation as a matrix in the size of the image with
 ![](/Figure1.png)
 Figure 1) Semantic segmentation of image of liquid in glass vessel with FCN. Red=Empty Vessel, Blue=Liquid Filled Vessel, Grey=Background
 
-## Net Architecture
-The net is based on [fully convolutional neural network for semantic segmentation](https://arxiv.org/pdf/1605.06211.pdf) and composed of [Densenet](https://arxiv.org/pdf/1608.06993.pdf) encoder [PSP](https://arxiv.org/pdf/1612.01105.pdf) itermediate layers  and two [deconvolutional and skip connections](https://arxiv.org/pdf/1605.06211.pdf) upsample layers. The net architecture is defined in the NET_FCN.py file. The Densenet encoder is defined in densenet_cosine_264_k32.py.
 ## Requirements
 This network was run with Python 3.6  [Anaconda](https://www.anaconda.com/download/) package and [Pytorch 0.3](https://pytorch.org/). The training was done using Nvidia GTX 1080, on Linux Ubuntu 16.04.
 
@@ -33,7 +31,7 @@ In: TRAIN.py
 6) Run script
 See additional parameters you can playu with in the input parameters section of the train.py script
 
-### Predicting pixelwise annotation for image using trained net 
+### Semantic segmentation for image using trained net 
 In: Inference.py
 1) Make sure you you have trained model in Trained_model_path (See Train.py for creating trained model)
 2) Set the Image_Dir to the folder where the input image for prediction are located
@@ -49,6 +47,8 @@ In: InferenceVideo.py
 4) Set OutputVid to the output video file (with segmentation overlay)
 5) Run script
 
+## Net Architecture
+The net is based on [fully convolutional neural network for semantic segmentation](https://arxiv.org/pdf/1605.06211.pdf) and composed of [Densenet](https://arxiv.org/pdf/1608.06993.pdf) encoder [PSP](https://arxiv.org/pdf/1612.01105.pdf) itermediate layers  and two [skip connections](https://arxiv.org/pdf/1605.06211.pdf) upsample layers. The net architecture is defined in the NET_FCN.py file. The Densenet encoder is defined in densenet_cosine_264_k32.py.
 ### Evaluating net performance using intersection over union (IOU):
 In: Evaluate_Net_IOU.py
 1) Make sure you you have trained model in Trained_model_path (See Train.py for training model)
