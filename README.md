@@ -1,6 +1,6 @@
 #  Semantic segmentation with Fully convolutional neural network (FCN) pytorch implementation.
 
-Fully convolutional neural network (FCN) for pixelwise annotation (semantic segmentation) of images implemented on python pytorch. 
+Fully convolutional neural network (FCN) for pixelwise annotation (semantic segmentation) of images implemented on pytorch. 
  
 
 ## Details input/output
@@ -47,8 +47,7 @@ In: InferenceVideo.py
 4) Set OutputVid to the output video file (with segmentation overlay)
 5) Run script
 
-## Net Architecture
-The net is based on [fully convolutional neural network for semantic segmentation](https://arxiv.org/pdf/1605.06211.pdf) and composed of [Densenet](https://arxiv.org/pdf/1608.06993.pdf) encoder [PSP](https://arxiv.org/pdf/1612.01105.pdf) itermediate layers  and two [skip connections](https://arxiv.org/pdf/1605.06211.pdf) upsample layers. The net architecture is defined in the NET_FCN.py file. The Densenet encoder is defined in densenet_cosine_264_k32.py.
+
 ### Evaluating net performance using intersection over union (IOU):
 In: Evaluate_Net_IOU.py
 1) Make sure you you have trained model in Trained_model_path (See Train.py for training model)
@@ -58,6 +57,9 @@ In: Evaluate_Net_IOU.py
 4) Set number of classes number in NUM_CLASSES
 5) Set classes names in Classes
 6) Run script
+
+## Net Architecture
+The net is based on [fully convolutional neural network for semantic segmentation](https://arxiv.org/pdf/1605.06211.pdf) and composed of [Densenet](https://arxiv.org/pdf/1608.06993.pdf) encoder [PSP](https://arxiv.org/pdf/1612.01105.pdf) itermediate layers  and two [skip connections](https://arxiv.org/pdf/1605.06211.pdf) upsample layers. The net architecture is defined in the NET_FCN.py file. The Densenet encoder is defined in densenet_cosine_264_k32.py.
 
 ## Trained models 
 1) Trained Model for recognition of fill and emprty region of transperent vessels and glassware ([3 Classes](https://drive.google.com/file/d/1yw7e83ux1F0yrHR1k9PZRQVd37jxUov_/view?usp=sharing)) can be download from [here](https://drive.google.com/file/d/1s4PZXkMn7euMMsxFOIaMKYjOIeSv-ZTJ/view?usp=sharing) 
