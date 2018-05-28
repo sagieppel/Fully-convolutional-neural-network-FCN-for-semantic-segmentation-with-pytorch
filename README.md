@@ -64,6 +64,7 @@ The net is based on [fully convolutional neural network for semantic segmentatio
 ## Trained models 
 1) Trained Model for recognition of fill and emprty region of transperent vessels and glassware ([3 Classes](https://drive.google.com/file/d/1yw7e83ux1F0yrHR1k9PZRQVd37jxUov_/view?usp=sharing)) can be download from [here](https://drive.google.com/file/d/1s4PZXkMn7euMMsxFOIaMKYjOIeSv-ZTJ/view?usp=sharing) 
 2) Trained model for recogntion of liquid and solid  materials phases in glassware and transperent vessels ([4 Classes](https://drive.google.com/file/d/1HkwjFU1ffo29oSER3rak5qoLKvpwf9Sn/view?usp=sharing)) can be download from [here](https://drive.google.com/file/d/1vALUddiwnZNpBjum1jCHYkJGYN0eQg7q/view?usp=sharing) 
+3) Trained model for recogntion of glassware and transperent vessels (2 Classes) can be download from [here](https://drive.google.com/open?id=13J404gHZy1eSIy3ynCCRrk2M6iLvJuy0)
 ## Supporting data sets
 The net was tested on a dataset of annotated images of materials in glass vessels. 
 This dataset can be downloaded from [here](https://drive.google.com/file/d/0B6njwynsu2hXRFpmY1pOV1A4SFE/view?usp=sharing)
