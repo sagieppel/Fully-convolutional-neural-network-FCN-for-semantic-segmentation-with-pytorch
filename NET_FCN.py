@@ -88,8 +88,8 @@ class Net(nn.Module):# FCN Net class for semantic segmentation init generate net
                 PSPFeatures=[] # Results of various of scaled procceessing
                 for i,Layer in enumerate(self.PSPLayers): # run PSP layers scale features map to various of sizes apply convolution and concat the results
                       NewSize=np.ceil(np.array(PSPSize)*self.PSPScales[i]).astype(np.int)
-
-                      y = F.upsample(x, torch.from_numpy(NewSize), mode='bilinear')
+                      y = F.upsample(x, tuple(NewSize), mode='bilinear')
+                      #y = F.upsample(x, torch.from_numpy(NewSize), mode='bilinear')
                       y = Layer(y)
                       y = F.upsample(y, PSPSize, mode='bilinear')
                 #      if np.min(PSPSize*self.ScaleRates[i])<0.4: y*=0
