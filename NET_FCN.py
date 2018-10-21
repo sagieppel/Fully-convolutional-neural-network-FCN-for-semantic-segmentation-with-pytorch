@@ -88,10 +88,10 @@ class Net(nn.Module):# FCN Net class for semantic segmentation init generate net
                 PSPFeatures=[] # Results of various of scaled procceessing
                 for i,Layer in enumerate(self.PSPLayers): # run PSP layers scale features map to various of sizes apply convolution and concat the results
                       NewSize=np.ceil(np.array(PSPSize)*self.PSPScales[i]).astype(np.int)
-                      y = F.upsample(x, tuple(NewSize), mode='bilinear')
+                      y = nn.functional.interpolate(x, tuple(NewSize), mode='bilinear')
                       #y = F.upsample(x, torch.from_numpy(NewSize), mode='bilinear')
                       y = Layer(y)
-                      y = F.upsample(y, PSPSize, mode='bilinear')
+                      y = nn.functional.interpolate(y, PSPSize, mode='bilinear')
                 #      if np.min(PSPSize*self.ScaleRates[i])<0.4: y*=0
                       PSPFeatures.append(y)
                 x=torch.cat(PSPFeatures,dim=1)
@@ -99,12 +99,12 @@ class Net(nn.Module):# FCN Net class for semantic segmentation init generate net
 #----------------------------Upsample features map  and combine with layers from encoder using skip  connection-----------------------------------------------------------------------------------------------------------
                 for i in range(len(self.SkipConnections)):
                   sp=(SkipConFeatures[-1-i].shape[2],SkipConFeatures[-1-i].shape[3])
-                  x=F.upsample(x,size=sp,mode='bilinear') #Resize
+                  x=nn.functional.interpolate(x,size=sp,mode='bilinear') #Resize
                   x = torch.cat((self.SkipConnections[i](SkipConFeatures[-1-i]),x), dim=1)
                   x = self.SqueezeUpsample[i](x)
 #---------------------------------Final prediction-------------------------------------------------------------------------------
                 x = self.FinalPrdiction(x) # Make prediction per pixel
-                x = F.upsample(x,size=InpImages.shape[2:4],mode='bilinear') # Resize to original image size
+                x = nn.functional.interpolate(x,size=InpImages.shape[2:4],mode='bilinear') # Resize to original image size
                 Prob=F.softmax(x,dim=1) # Calculate class probability per pixel
                 tt,Labels=x.max(1) # Find label per pixel
                 return Prob,Labels

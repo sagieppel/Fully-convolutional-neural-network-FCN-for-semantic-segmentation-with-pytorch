@@ -14,7 +14,7 @@ import OverrlayLabelOnImage as Overlay
 import NET_FCN
 import torch
 #------------------------Input Parameters-------------------------------------------------------
-Image_Dir="Data_Zoo/Materials_In_Vessels/Test_Images_All/"# Test image folder
+Image_Dir="Test_Images/"# Test image folder
 Trained_model_path="TrainedModelWeights/FillLevelRecognitionNetWeights.torch"# "Path to trained net weights
 
 w=0.5# weight of overlay on image for display
