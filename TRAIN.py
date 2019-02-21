@@ -17,10 +17,7 @@ import NET_FCN # The net Class
 import os
 import torch
 import numpy as np
-import scipy.misc as misc
-from torch.autograd import Variable
-import torch.nn as nn
-import torch.nn.functional as F
+
 #...........................................Input parametrs................................................................
 Train_Image_Dir="Data_Zoo/Materials_In_Vessels/Train_Images/" # Images and labels for training
 Train_Label_Dir="Data_Zoo/Materials_In_Vessels/LiquidSolidLabels/"# Annotetion in png format for train images (assume the name of the images and annotation images are the same (but annotation is always png format))
@@ -40,10 +37,10 @@ ValidLossTxtFile=TrainedModelWeightDir+"ValidationLoss.txt"# Where validation lo
 
 Batch_Size=1 # Number of images per training iteration (keep small to avoid out of  memory problems)
 Weight_Decay=1e-4# Weight for the weight decay loss function
-MAX_ITERATION = int(80010) # Max  number of training iteration
+MAX_ITERATION = int(800010) # Max  number of training iteration
 NUM_CLASSES = 4#Number of classes the model predict
 
-UpdateEncoderBatchNormStatistics=False
+UpdateEncoderBatchNormStatistics=True
 
 #---------------------Create and Initiate net and create optimizer------------------------------------------------------------------------------------
 
@@ -82,8 +79,8 @@ for itr in range(1,MAX_ITERATION): # Main training loop
     Net.zero_grad()
     Loss = -torch.mean((OneHotLabels * torch.log(Prob + 0.0000001)))  # Calculate loss between prediction and ground truth label
 
-    if AVGLoss==-1:  AVGLoss=float(Loss.data) #Calculate average loss for display
-    else: AVGLoss=AVGLoss*0.99+0.01*float(Loss.data) # Intiate runing average loss
+    if AVGLoss==-1:  AVGLoss=float(Loss.data.cpu().numpy()) #Calculate average loss for display
+    else: AVGLoss=AVGLoss*0.99+0.01*float(Loss.data.cpu().numpy()) # Intiate runing average loss
 
     Loss.backward() # Backpropogate loss
     optimizer.step() # Apply gradient descent change to weight
@@ -96,10 +93,10 @@ for itr in range(1,MAX_ITERATION): # Main training loop
 #......................Write and display train loss..........................................................................
     if itr % 10==0: # Display train loss
         torch.cuda.empty_cache()  #Empty cuda memory to avoid memory leaks
-        print("Step "+str(itr)+" Train Loss="+str(float(Loss.data))+" Runnig Average Loss="+str(AVGLoss))
+        print("Step "+str(itr)+" Train Loss="+str(float(Loss.data.cpu().numpy()))+" Runnig Average Loss="+str(AVGLoss))
         #Write train loss to file
         with open(TrainLossTxtFile, "a") as f:
-            f.write("\n"+str(itr)+"\t"+str(float(Loss.data))+"\t"+str(AVGLoss))
+            f.write("\n"+str(itr)+"\t"+str(float(Loss.data.cpu().numpy()))+"\t"+str(AVGLoss))
             f.close()
 #.....................Caclculate Validation Set loss (optional).....................................................................
     if UseValidationSet and itr % 2000 == 0:
@@ -112,7 +109,7 @@ for itr in range(1,MAX_ITERATION): # Main training loop
             OneHotLabels = PreProccessing.LabelConvert(GTLabels,NUM_CLASSES)  # Convert labels map to one hot encoding pytorch
             Prob,Lb = Net.forward(Images)  # Run inference and get prediction
             TLoss = -torch.mean((OneHotLabels * torch.log(Prob + 0.0000001)))  # Calculate loss between prediction and
-            SumLoss+=float(TLoss.data)
+            SumLoss+=float(TLoss.data.cpu().numpy())
             NBatches+=1
         SumLoss/=NBatches
         print("Validation Loss: "+str(SumLoss))

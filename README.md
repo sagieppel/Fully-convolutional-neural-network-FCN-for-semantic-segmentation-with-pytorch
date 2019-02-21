@@ -11,7 +11,7 @@ The net produces pixel-wise annotation as a matrix in the size of the image with
 Figure 1) Semantic segmentation of image of liquid in glass vessel with FCN. Red=Empty Vessel, Blue=Liquid Filled Vessel, Grey=Background
 
 ## Requirements
-This network was run with Python 3.6  [Anaconda](https://www.anaconda.com/download/) package and [Pytorch 0.3](https://pytorch.org/). The training was done using Nvidia GTX 1080, on Linux Ubuntu 16.04.
+This network was run with Python 3.7  [Anaconda](https://www.anaconda.com/download/) package and [Pytorch 1](https://pytorch.org/). The training was done using Nvidia GTX 1080.
 
 ## Setup
 1) Install [Pytorch](https://pytorch.org/)

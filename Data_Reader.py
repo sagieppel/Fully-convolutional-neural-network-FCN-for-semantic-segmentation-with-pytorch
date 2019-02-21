@@ -92,12 +92,12 @@ class Data_Reader:
                 FCrx = Crx
 
                 rt = np.sqrt(self.MaxSize / (Crx * Cry))
-                print(rt)
+               # print(rt)
                 if rt < 1:
-                    print("Max " + str(Crx * Cry))
+                #    print("Max " + str(Crx * Cry))
                     FCry = int(FCry * rt)
                     FCrx = int(FCrx * rt)
-                    print ("new Max" +str(FCrx*FCry))
+               #     print ("new Max" +str(FCrx*FCry))
 
 
                 md = min((FCry, FCrx))

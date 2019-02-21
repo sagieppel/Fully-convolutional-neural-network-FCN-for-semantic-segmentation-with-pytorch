@@ -24,18 +24,17 @@ Trained_model_path="TrainedModelWeights/FillLevelRecognitionNetWeights.torch"# "
 
 NUM_CLASSES = 3 #Number of classes the net predicts
 #Classes = ["BackGround", "Empty Vessel","Liquid","Solid"] #names of classe the net predic
-UpdateNormBatchStatisics=False # Do you want ot calculate batch normstatistics on the fly or used training statistics
 #Classes=["Background","Vessel"] #Classes predicted for vessel region prediction
 Classes=["BackGround","Empty Vessel region","Filled Vessel region"]#
-
+#Classes=["BackGround","Empty Vessel region","liquid","Solid"]
 #Classes=["BackGround","Vessel","Liquid","Liquid Phase two","Suspension", "Emulsion","Foam","Solid","Gel","Powder","Granular","Bulk","Bulk Liquid","Solid Phase two","Vapor"]
 
  # .........................Build FCN Net...............................................................................................
 Net=FCN.Net(NumClasses=NUM_CLASSES) #Build Net
 Net.load_state_dict(torch.load(Trained_model_path)) # Load Traine model
-if not UpdateNormBatchStatisics: Net.eval() #Dont update batch normalization statitics
 print("Model weights loaded from: "+Trained_model_path)
-
+Net.eval()
+Net.half()
 # -------------------------Data reader for validation image-----------------------------------------------------------------------------------------------------------------------------
 
 ValidReader = Data_Reader.Data_Reader(Image_Dir,GTLabelDir=Label_Dir, BatchSize=1) # build reader that will be used to load images and labels from validation set
@@ -53,7 +52,7 @@ while (ValidReader.itr<ValidReader.NumFiles):
 #.........................................Run Predictin/inference on validation................................................................................
     Images,  GTLabels = ValidReader.ReadNextBatchClean()  # Read images  and ground truth annotation
     Prob,Pred = Net.forward(Images,EvalMode=True)#Predict annotation using trained  net
-    PredictedLabels=np.array(Pred.data)
+    PredictedLabels=Pred.cpu().numpy()
 #............................Calculate Intersection and union for prediction...............................................................
 #   print("-------------------------IOU----------------------------------------")
     CIOU,CU=IOU.GetIOU(PredictedLabels.squeeze(),GTLabels.squeeze(),len(Classes),Classes) #Calculate intersection over union

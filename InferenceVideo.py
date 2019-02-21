@@ -15,19 +15,21 @@ import NET_FCN
 import torch
 import cv2
 #------------------------Input Parameters-------------------------------------------------------
-InputVid='/media/sagi/9be0bc81-09a7-43be-856a-45a5ab241d90/VideosLiquidLevel/3.mov'
-OuputVid='/media/sagi/9be0bc81-09a7-43be-856a-45a5ab241d90/VideosLiquidLevel/output.avi'
+InputVid='Untitled Folder/input.avi'
+OuputVid='output.avi'
 Trained_model_path="TrainedModelWeights/FillLevelRecognitionNetWeights.torch"# "Path to trained net weights
 w=0.8# weight of overlay on image for display
 Output_Dir="Output_Prediction/" #Folder where the output prediction will be save
 NameEnd="" # Add this string to the ending of the file name optional
 NUM_CLASSES = 3 # Number of classes
 Scale=0.6
-UpdateNormBatchStatisics=False # Do you want ot calculate batch normstatistics on the fly or used training statistics
+
 #-----------------------------Create net and load weight--------------------------------------------------------------------------------------------
 Net=NET_FCN.Net(NumClasses=NUM_CLASSES) #Build Net
 Net.load_state_dict(torch.load(Trained_model_path)) # Load Traine model
-if not UpdateNormBatchStatisics: Net.eval() #Dont update batch normalization statitics
+Net.eval()
+Net.half()
+
 print("Model weights loaded from: "+Trained_model_path)
 #############################Open Video Files###################################################################################################################################################
 
@@ -59,7 +61,7 @@ while(InStream.isOpened()):
         frame = np.rot90(frame,3)
         frame = np.expand_dims(frame,axis=0)
         Prob, Pred = Net.forward(frame,EvalMode=True)  # Predict annotation using net
-        LabelPred = np.array(Pred.data)
+        LabelPred = Pred.data.cpu().numpy()
         OverLay=Overlay.OverLayLabelOnImage(frame[0], LabelPred[0], w)
        # frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
         # write the flipped frame

@@ -7,7 +7,7 @@
 # 5) Run script
 #-----------------------Imports---------------------------------------------------------------------------------------------
 import numpy as np
-import scipy.misc as misc
+import imageio
 import os
 import Data_Reader
 import OverrlayLabelOnImage as Overlay
@@ -21,11 +21,11 @@ w=0.5# weight of overlay on image for display
 Output_Dir="Output_Prediction/" #Folder where the output prediction will be save
 NameEnd="" # Add this string to the ending of the file name optional
 NUM_CLASSES = 3 # Number of classes
-UpdateNormBatchStatisics=False # Do you want ot calculate batch normstatistics on the fly or used training statistics
 #-----------------------------Create net and load weight--------------------------------------------------------------------------------------------
 Net=NET_FCN.Net(NumClasses=NUM_CLASSES) #Build Net
 Net.load_state_dict(torch.load(Trained_model_path)) # Load Traine model
-if not UpdateNormBatchStatisics: Net.eval() #Dont update batch normalization statitics
+Net.eval()
+Net.half()
 print("Model weights loaded from: "+Trained_model_path)
 ################################################################################################################################################################################
 
@@ -53,8 +53,8 @@ while (Reader.itr < Reader.NumFiles):
 
     # Predict annotation using net
     Prob, Pred = Net.forward(Images,EvalMode=True)  # Predict annotation using net
-    LabelPred = np.array(Pred.data)
+    LabelPred = Pred.data.cpu().numpy()
     #------------------------Save predicted labels overlay on images---------------------------------------------------------------------------------------------
-    misc.imsave(Output_Dir + "/OverLay/"+ FileName+NameEnd  , Overlay.OverLayLabelOnImage(Images[0],LabelPred[0], w)) #Overlay label on image and save
-    misc.imsave(Output_Dir + "/Label/" + FileName[:-4]+".png" + NameEnd, LabelPred[0].astype(np.uint8)) #Save annotation map
+    imageio.imsave(Output_Dir + "/OverLay/"+ FileName+NameEnd  , Overlay.OverLayLabelOnImage(Images[0],LabelPred[0], w).astype(np.uint8)) #Overlay label on image and save
+    imageio.imsave(Output_Dir + "/Label/" + FileName[:-4]+".png" + NameEnd, LabelPred[0].astype(np.uint8)) #Save annotation map
     ##################################################################################################################################################

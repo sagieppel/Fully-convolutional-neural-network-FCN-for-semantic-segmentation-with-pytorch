@@ -8,7 +8,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 import densenet_cosine_264_k32
 class Net(nn.Module):# FCN Net class for semantic segmentation init generate net layers and forward run the inference
-        def __init__(self,NumClasses,PreTrainedModelPath="",UseGPU=True,UpdateEncoderBatchNormStatistics=False): # prepare net layers and load Load pretrained encoder weights
+        def __init__(self,NumClasses,PreTrainedModelPath="",UseGPU=True,UpdateEncoderBatchNormStatistics=True): # prepare net layers and load Load pretrained encoder weights
             super(Net, self).__init__()
             self.UseGPU = UseGPU
 #---------------Load Densenet pretrained encoder----------------------------------------------------------
@@ -68,7 +68,8 @@ class Net(nn.Module):# FCN Net class for semantic segmentation init generate net
 #----------------------Convert image to pytorch and normalize values-----------------------------------------------------------------
                 RGBMean = [123.68,116.779,103.939]
                 RGBStd = [65,65,65]
-                InpImages = torch.autograd.Variable(torch.from_numpy(Images.astype(float)), requires_grad=False,volatile=EvalMode).transpose(2,3).transpose(1, 2).type(torch.FloatTensor)
+                if EvalMode==False: InpImages = torch.autograd.Variable(torch.from_numpy(Images.astype(float)), requires_grad=False).transpose(2,3).transpose(1, 2).type(torch.FloatTensor)
+                else: InpImages = torch.autograd.Variable(torch.from_numpy(Images.astype(float)),requires_grad=False).transpose(2, 3).transpose(1, 2).type(torch.HalfTensor)
 
                 if self.UseGPU == True:
                     InpImages=InpImages.cuda()
