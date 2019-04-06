@@ -22,7 +22,7 @@ w=0.8# weight of overlay on image for display
 Output_Dir="Output_Prediction/" #Folder where the output prediction will be save
 NameEnd="" # Add this string to the ending of the file name optional
 NUM_CLASSES = 3 # Number of classes
-Scale=0.6
+Scale=1
 
 #-----------------------------Create net and load weight--------------------------------------------------------------------------------------------
 Net=NET_FCN.Net(NumClasses=NUM_CLASSES) #Build Net
@@ -58,7 +58,7 @@ while(InStream.isOpened()):
         #frame = cv2.flip(frame,0)
 
         frame = cv2.resize(frame,FrameSize)
-        frame = np.rot90(frame,3)
+        #frame = np.rot90(frame,3)
         frame = np.expand_dims(frame,axis=0)
         Prob, Pred = Net.forward(frame,EvalMode=True)  # Predict annotation using net
         LabelPred = Pred.data.cpu().numpy()
@@ -77,15 +77,3 @@ while(InStream.isOpened()):
         # Release everything if job is finished
 InStream.release()
 OutStream.release()
-
-
-    # ..................................Load image.......................................................................................
-
-
-
-    # # Predict annotation using net
-    #
-    # #------------------------Save predicted labels overlay on images---------------------------------------------------------------------------------------------
-    # misc.imsave(Output_Dir + "/OverLay/"+ FileName+NameEnd  , ) #Overlay label on image and save
-    # misc.imsave(Output_Dir + "/Label/" + FileName[:-4]+".png" + NameEnd, LabelPred[0].astype(np.uint8)) #Save annotation map
-    ##################################################################################################################################################
