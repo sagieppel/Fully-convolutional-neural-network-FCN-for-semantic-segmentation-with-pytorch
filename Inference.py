@@ -52,7 +52,8 @@ while (Reader.itr < Reader.NumFiles):
     Images = Reader.ReadNextBatchClean()  # load testing image
 
     # Predict annotation using net
-    Prob, Pred = Net.forward(Images,EvalMode=True)  # Predict annotation using net
+    with torch.autograd.no_grad():
+              Prob, Pred = Net.forward(Images,EvalMode=True)  # Predict annotation using net
     LabelPred = Pred.data.cpu().numpy()
     #------------------------Save predicted labels overlay on images---------------------------------------------------------------------------------------------
     imageio.imsave(Output_Dir + "/OverLay/"+ FileName+NameEnd  , Overlay.OverLayLabelOnImage(Images[0],LabelPred[0], w).astype(np.uint8)) #Overlay label on image and save
