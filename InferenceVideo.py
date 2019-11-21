@@ -60,7 +60,8 @@ while(InStream.isOpened()):
         frame = cv2.resize(frame,FrameSize)
         #frame = np.rot90(frame,3)
         frame = np.expand_dims(frame,axis=0)
-        Prob, Pred = Net.forward(frame,EvalMode=True)  # Predict annotation using net
+        with torch.autograd.no_grad():
+               Prob, Pred = Net.forward(frame,EvalMode=True)  # Predict annotation using net
         LabelPred = Pred.data.cpu().numpy()
         OverLay=Overlay.OverLayLabelOnImage(frame[0], LabelPred[0], w)
        # frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
