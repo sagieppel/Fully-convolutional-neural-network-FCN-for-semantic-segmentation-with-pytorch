@@ -2,7 +2,7 @@
 
 Fully convolutional neural network (FCN) for pixelwise annotation (semantic segmentation) of images implemented on pytorch. 
 
-## For semantic segmentation of materials inside vessels (liquid level fill level etc..) use the code [here](https://github.com/sagieppel/Detecting-and-segmenting-and-classifying-materials-inside-vessels-in-images-using-convolutional-net)
+## For semantic segmentation of materials inside vessels (vessel/liquid region, fill level etc..) use the code [here](https://github.com/sagieppel/Detecting-and-segmenting-and-classifying-materials-inside-vessels-in-images-using-convolutional-net)
  
 
 ## Details input/output
